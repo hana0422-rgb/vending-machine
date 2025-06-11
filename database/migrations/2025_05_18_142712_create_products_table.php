@@ -9,15 +9,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
+             $table->id();
             $table->unsignedBigInteger('company_id');
             $table->string('product_name');
+            $table->string('maker_name')->nullable();
             $table->integer('price');
+            $table->integer('stock');
+            $table->text('comment')->nullable();
+            $table->string('image_path')->nullable();
             $table->timestamps();
-            $table->string('maker_name')->nullable(); // ← 追加または変更
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }
+    
 
     public function down()
     {

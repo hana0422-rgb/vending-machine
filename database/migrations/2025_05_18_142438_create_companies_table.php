@@ -6,19 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
+    public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('company_name');
-            $table->string('street_address')->nullable();
-            $table->string('representative_name')->nullable();
-            $table->timestamps(); // created_at, updated_at を自動で追加
+            $table->unsignedBigInteger('company_id');
+            $table->string('product_name');
+            $table->string('maker_name')->nullable();
+            $table->integer('price');
+            $table->integer('stock');
+            $table->text('comment')->nullable();
+            $table->string('image_path')->nullable();
+            $table->timestamps();
+
+            // 🔽 外部キー制約（忘れがち）
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }
 
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('products');
     }
 };
