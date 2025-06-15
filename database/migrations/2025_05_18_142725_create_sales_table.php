@@ -6,26 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id');
-            $table->string('product_name');
-            $table->string('maker_name')->nullable();
-            $table->integer('price');
-            $table->integer('stock');
-            $table->text('comment')->nullable();
-            $table->string('image_path')->nullable();
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->integer('quantity');
             $table->timestamps();
-
-            // 🔽 外部キー制約（忘れがち）
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('sales');
     }
 };

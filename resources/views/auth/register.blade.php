@@ -20,7 +20,8 @@
         <input type="email" name="email" placeholder="メールアドレス" value="{{ old('email') }}">
         <input type="password" name="password" placeholder="パスワード">
 
-        <button type="submit">新規登録</button>
+        <button type="submit" class="btn-user-register">新規登録</button>
+
 
         <a href="{{ route('login.form') }}">← ログイン画面へ戻る</a>
     </form>

@@ -22,7 +22,9 @@
         @csrf
         <input type="email" name="email" placeholder="メールアドレス" required>
         <input type="password" name="password" placeholder="パスワード" required>
-        <button type="submit">ログイン</button>
+        <button type="submit" class="btn-login-main">ログイン</button>
+
+
     </form>
 
     <a href="{{ route('register.form') }}" class="link-to-register">新規登録はこちら</a>

@@ -6,19 +6,18 @@
 
     <!-- 検索フォーム -->
     <form method="GET" action="{{ route('products.index') }}" class="search-form">
-    <input type="text" name="keyword" placeholder="検索キーワード" value="{{ request('keyword') }}">
-    <select name="company_id">
-        <option value="">メーカー名</option>
-        @foreach ($companies as $company)
-            <option value="{{ $company->id }}" {{ request('company_id') == $company->id ? 'selected' : '' }}>
-                {{ $company->company_name }}
-            </option>
-        @endforeach
-    </select>
-    <button type="submit" class="btn-search">検索</button>
-    <a href="{{ route('products.create') }}" class="btn-register">新規登録</a>
-</form>
-
+        <input type="text" name="keyword" placeholder="検索キーワード" value="{{ request('keyword') }}">
+        <select name="company_id">
+            <option value="">メーカー名</option>
+            @foreach ($companies as $company)
+                <option value="{{ $company->id }}" {{ request('company_id') == $company->id ? 'selected' : '' }}>
+                    {{ $company->company_name }}
+                </option>
+            @endforeach
+        </select>
+        <button type="submit" class="btn-search">検索</button>
+        <a href="{{ route('products.create') }}" class="btn-register">新規登録</a>
+    </form>
 
     <!-- 商品一覧テーブル -->
     <table class="table">
@@ -30,7 +29,7 @@
                 <th>価格</th>
                 <th>在庫数</th>
                 <th>メーカー名</th>
-                <th></th>
+                <th>操作</th>
             </tr>
         </thead>
         <tbody>
@@ -45,13 +44,20 @@
                     @endif
                 </td>
                 <td>{{ $product->product_name }}</td>
-                <td>{{ $product->price }}</td>
+                <td>¥{{ $product->price }}</td>
                 <td>{{ $product->stock }}</td>
                 <td>{{ $product->company->company_name ?? '' }}</td>
-                <td>
-                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-info btn-sm">詳細</a>
-                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm">編集</a>
-                </td>
+<td class="d-flex" style="gap: 8px; justify-content: center;">
+    <!-- 詳細ボタン -->
+    <a href="{{ route('products.show', $product->id) }}" class="btn-action btn-detail">詳細</a>
+
+    <!-- 削除ボタン -->
+    <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('本当に削除しますか？');">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn-action delete-btn-red">削除</button>
+    </form>
+</td>
             </tr>
             @endforeach
         </tbody>
