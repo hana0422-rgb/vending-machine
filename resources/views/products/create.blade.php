@@ -42,15 +42,15 @@
             <textarea name="comment">{{ old('comment') }}</textarea>
         </div>
 
-        <div class="form-row">
-            <label>会社：</label>
-            <select name="company_id" required>
-    <option value="">選択してください</option>
-    @foreach ($companies as $company)
-        <option value="{{ $company->id }}">{{ $company->company_name }}</option>
-    @endforeach
-</select>
-        </div>
+     <div class="form-row">
+    <label for="company_id">会社：</label>  {{-- ←ここだけ表示名を修正 --}}
+    <select name="company_id" id="company_id">
+        <option value="">選択してください</option>
+        @foreach ($companies as $company)
+            <option value="{{ $company->id }}">{{ $company->company_name }}</option>
+        @endforeach
+    </select>
+</div>
 
         <div class="form-row">
             <label>商品画像：</label>
