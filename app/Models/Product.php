@@ -19,7 +19,7 @@ class Product extends Model
         'image_path',
     ];
 
-    // 会社に属する
+
     public function company()
     {
         return $this->belongsTo(Company::class);

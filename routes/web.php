@@ -28,8 +28,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sales/create', [SaleController::class, 'create'])->name('sales.create');
     Route::post('/sales', [SaleController::class, 'store'])->name('sales.store');
 
-    // ログアウト
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
 // 👇 トップページはログイン画面にリダイレクト
