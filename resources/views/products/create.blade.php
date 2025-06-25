@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1 class="mb-4">商品新規登録画面</h1>
+    <h1>商品新規登録画面</h1>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -14,52 +13,49 @@
         </div>
     @endif
 
-    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="product-form">
+    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="form-row">
-            <label>商品名：</label>
-            <input type="text" name="product_name" value="{{ old('product_name') }}" required>
+            <label for="product_name">商品名：</label>
+            <input type="text" name="product_name" value="{{ old('product_name') }}">
         </div>
 
         <div class="form-row">
-            <label>メーカー名：</label>
-            <input type="text" name="maker_name" value="{{ old('maker_name') }}">
+            <label for="company_id">会社：</label>
+            <select name="company_id" id="company_id" class="form-control">
+                <option value="">選択してください</option>
+                @foreach ($companies as $company)
+                    <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }}>
+                        {{ $company->company_name }}
+                    </option>
+                @endforeach
+            </select>
         </div>
 
         <div class="form-row">
-            <label>価格：</label>
-            <input type="number" name="price" min="1" value="{{ old('price') }}" required>
+            <label for="price">価格：</label>
+            <input type="number" name="price" value="{{ old('price') }}">
         </div>
 
         <div class="form-row">
-            <label>在庫数：</label>
-            <input type="number" name="stock" min="0" value="{{ old('stock') }}" required>
+            <label for="stock">在庫数：</label>
+            <input type="number" name="stock" value="{{ old('stock') }}">
         </div>
 
         <div class="form-row">
-            <label>コメント：</label>
+            <label for="comment">コメント：</label>
             <textarea name="comment">{{ old('comment') }}</textarea>
         </div>
 
-     <div class="form-row">
-    <label for="company_id">会社：</label>  {{-- ←ここだけ表示名を修正 --}}
-    <select name="company_id" id="company_id" class="form-control">
-        <option value="">選択してください</option>
-        @foreach ($companies as $company)
-            <option value="{{ $company->id }}">{{ $company->company_name }}</option>
-        @endforeach
-    </select>
-</div>
+        <div class="form-row">
+            <label for="image">商品画像：</label>
+            <input type="file" name="image">
+        </div>
 
         <div class="form-row">
-            <label>商品画像：</label>
-            <input type="file" name="image_path" accept="image/*">
+            <button type="submit">新規登録</button>
+            <a href="{{ route('products.index') }}">戻る</a>
         </div>
-        <div class="form-buttons">
-    <button type="submit" class="btn-submit">新規登録</button>
-    <a href="{{ route('products.index') }}" class="btn-back">戻る</a>
-</div>
     </form>
-</div>
 @endsection
