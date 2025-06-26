@@ -189,10 +189,53 @@ a:hover {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
+.form-row.button-center {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 30px;
+}
+.btn2-submit {
+    padding: 8px 24px;
+    font-size: 14px;
+    background-color: pink;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn2-submit:hover {
+    background-color: #d87093;
+}
+
+.btn2-back {
+    padding: 8px 24px;
+    font-size: 14px;
+    background-color: #ccc;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn2-back:hover {
+    background-color: #b3b3b3;
+}
+  
 
 .product-form {
-    max-width: 600px;
-    margin: 0 auto;
+    max-width: 500px;  
+    margin: 40px auto;
+    padding: 30px;    
+    background-color: #fff0f5;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* === 汎用ボタン（編集・戻る） === */

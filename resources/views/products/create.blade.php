@@ -53,9 +53,10 @@
             <input type="file" name="image">
         </div>
 
-        <div class="form-row">
-            <button type="submit">新規登録</button>
-            <a href="{{ route('products.index') }}">戻る</a>
-        </div>
+   <div class="form-row">
+    <button type="submit" class="btn2-submit">新規登録</button>
+    <a href="{{ route('products.index') }}" class="btn2-back">戻る</a>
+</div>
+
     </form>
 @endsection
