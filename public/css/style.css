@@ -1,399 +1,936 @@
-/* === 全体設定 === */
 body {
-    background-color: #ffffff;
-    font-family: 'Helvetica Neue', sans-serif;
-    color: #333;
+
+background-color: #ffffff;
+
+font-family: 'Helvetica Neue', sans-serif;
+
+color: #333;
+
 }
+
+
 
 /* === ログインボタン（中央・丸み強め） === */
+
 .btn-login-main {
-    background-color: #f8b9d4;
-    color: #fff;
-    border: none;
-    padding: 12px 26px;
-    font-size: 18px;
-    border-radius: 25px; /* 丸み強め */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin: 0 auto 10px auto; /* 上は余白、左右自動＝中央揃え */
-    text-align: center;
+
+background-color: #f8b9d4;
+
+color: #fff;
+
+border: none;
+
+padding: 12px 26px;
+
+font-size: 18px;
+
+border-radius: 25px; /* 丸み強め */
+
+cursor: pointer;
+
+transition: background-color 0.3s ease;
+
+display: block;
+
+margin: 0 auto 10px auto; /* 上は余白、左右自動＝中央揃え */
+
+text-align: center;
+
 }
+
 .btn-login-main:hover {
-    background-color: #f597bd;
+
+background-color: #f597bd;
+
 }
+
+
 
 /* === フォーム全体 === */
+
 .form-container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #fff0f5;
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+max-width: 600px;
+
+margin: 40px auto;
+
+padding: 30px;
+
+background-color: #fff0f5;
+
+border-radius: 20px;
+
+box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
 }
+
+
 
 .form-title {
-    font-size: 28px;
-    text-align: center;
-    margin-bottom: 25px;
-    color: #333;
+
+font-size: 28px;
+
+text-align: center;
+
+margin-bottom: 25px;
+
+color: #333;
+
 }
+
+
 
 input[type="email"],
+
 input[type="password"],
+
 input[type="text"],
-input[type="number"],
+
+input[type="number"], /* numberタイプも追加 */
+
 select,
+
 textarea {
-    width: 100%;
-    padding: 10px 14px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    font-size: 16px;
-    background-color: #fff;
+
+width: 100%;
+
+padding: 10px 14px;
+
+margin-bottom: 15px;
+
+border: 1px solid #ccc;
+
+border-radius: 12px;
+
+font-size: 16px;
+
+background-color: #fff;
+
 }
+
+
 
 /* === 一般リンク・アラート === */
+
 a {
-    color: #d070a9;
-    display: block;
-    text-align: center;
-    margin-top: 10px;
-    text-decoration: none;
+
+color: #d070a9;
+
+display: block;
+
+text-align: center;
+
+margin-top: 10px;
+
+text-decoration: none;
+
 }
+
 a:hover {
-    text-decoration: underline;
+
+text-decoration: underline;
+
 }
+
+
 
 .alert {
-    border-radius: 10px;
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    font-size: 14px;
-}
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
-}
-.alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
+
+border-radius: 10px;
+
+padding: 10px 15px;
+
+margin-bottom: 15px;
+
+font-size: 14px;
+
 }
 
-/* === 検索フォーム・新規登録ボタン === */
-.search-form {
-    display: flex;
-    align-items: flex-end;
-    gap: 10px;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
-    margin-bottom: 20px;
+.alert-success {
+
+background-color: #d4edda;
+
+color: #155724;
+
 }
-.search-form input[type="text"],
-.search-form select {
-    width: 180px;
-    padding: 8px 12px;
-    font-size: 14px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
+
+.alert-danger {
+
+background-color: #f8d7da;
+
+color: #721c24;
+
 }
-.search-form .btn-search {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    height: 40px;
-    font-size: 13px;
-    background-color: #f8b9d4;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    text-align: center;
-    transition: background-color 0.3s ease;
-    margin-bottom: 12px;
+
+
+
+/* === ここから新しい検索フォームのスタイル === */
+
+/* === おすすめデザイン: レスポンシブな折り返しレイアウト === */
+
+
+
+/* フォーム全体 */
+
+.search-form-candidate1 {
+
+display: flex;
+
+flex-direction: column; /* 縦方向に並べる */
+
+gap: 15px; /* グループ間の余白 */
+
+max-width: 700px; /* フォーム全体の最大幅を設定 */
+
+margin: 0 auto 30px auto; /* 中央寄せにする */
+
+padding: 20px;
+
+background-color: #fcfcfc; /* 背景色を少し変えて区別しやすく */
+
+border-radius: 15px;
+
+box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
 }
-.search-form .btn-search:hover {
-    background-color: #f597bd;
+
+
+
+/* 検索入力フィールド群のコンテナ */
+
+.search-form-candidate1 .search-inputs {
+
+display: flex;
+
+flex-direction: column; /* 縦方向に並べるように変更 */
+
+gap: 10px; /* 行間の余白 */
+
 }
-.search-form .btn-register {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 160px;
-    height: 50px;
-    font-size: 16px;
-    background-color: #ffb6c1;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    text-align: center;
-    position: relative;
-    top: -90px;
+
+
+
+/* 各行のコンテナ */
+
+.search-form-candidate1 .search-row {
+
+display: flex;
+
+flex-wrap: wrap; /* 画面幅に合わせて折り返す */
+
+gap: 10px; /* 入力フィールド間の余白 */
+
+align-items: center;
+
+justify-content: flex-start; /* 左寄せ */
+
 }
-.search-form .btn-register:hover {
-    background-color: #f597bd;
+
+
+
+/* 個々の入力フィールドとセレクトボックス (検索キーワードとメーカー名) */
+
+.search-form-candidate1 .search-row > input[type="text"],
+
+.search-form-candidate1 .search-row > select {
+
+flex: 1 1 220px; /* ⭐︎ 基準幅を増やして横長にする */
+
+max-width: 300px; /* ⭐︎ 最大幅も調整 */
+
+padding: 10px 14px;
+
+font-size: 15px;
+
+border-radius: 12px;
+
+border: 1px solid #ddd;
+
+box-sizing: border-box;
+
+background-color: #fff;
+
 }
+
+
+
+/* 価格・在庫数グループのコンテナ */
+
+.search-form-candidate1 .input-group {
+
+display: flex;
+
+align-items: center;
+
+gap: 5px; /* 入力フィールドと「〜」の間の余白 */
+
+flex: 1 1 300px; /* ⭐︎ 価格/在庫グループ全体の基準幅を増やして横長にする */
+
+max-width: 45%; /* ⭐︎ 親要素の約半分を占めるように（2つ並ぶ場合） */
+
+}
+
+
+
+.search-form-candidate1 .input-group input[type="number"] {
+
+flex: 1; /* グループ内で均等に幅を占める */
+
+min-width: 80px;
+
+}
+
+
+
+.search-form-candidate1 .input-separator {
+
+font-weight: bold;
+
+color: #666;
+
+padding: 0 5px;
+
+}
+
+
+
+/* 検索ボタンと新規登録ボタンのコンテナ */
+
+.search-form-candidate1 .search-buttons {
+
+display: flex;
+
+gap: 15px; /* ボタン間の余白 */
+
+justify-content: flex-end; /* ボタンを右寄せにする */
+
+margin-top: 10px; /* 上部に少し余白 */
+
+}
+
+
+
+/* 検索ボタンと新規登録ボタンの共通スタイル */
+
+.search-form-candidate1 .search-buttons .btn-primary,
+
+.search-form-candidate1 .search-buttons .btn-success {
+
+padding: 10px 20px;
+
+font-size: 15px;
+
+border-radius: 12px;
+
+border: none;
+
+cursor: pointer;
+
+transition: background-color 0.3s ease;
+
+white-space: nowrap;
+
+/* ⭐︎ heightとline-heightを明示的に設定して高さを揃える */
+
+height: 40p
+
+x; /* 例: 固定の高さを設定 */
+
+line-height: 20px; /* padding-top + font-size + padding-bottom = 10 + 15 + 10 = 35. So line-height 20px + 2*10px padding = 40px height. */
+
+display: inline-flex; /* Flexboxアイテムとして扱い、align-itemsで中央揃え可能に */
+
+align-items: center; /* テキストを垂直方向中央に揃える */
+
+justify-content: center; /* テキストを水平方向中央に揃える */
+
+}
+
+
+
+/* 検索ボタン */
+
+.search-form-candidate1 .search-buttons .btn-primary {
+
+background-color: #f28cb1;
+
+color: white;
+
+}
+
+.search-form-candidate1 .search-buttons .btn-primary:hover {
+
+background-color: #e8759c;
+
+}
+
+
+
+/* 新規登録ボタン */
+
+.search-form-candidate1 .search-buttons .btn-success {
+
+background-color: #ffb6c1;
+
+color: white;
+
+height: 40px;
+
+margin-top: -2px; /* 例: 上に5px移動。値を調整してください */
+
+}
+
+.search-form-candidate1 .search-buttons .btn-success:hover {
+
+background-color: #f597bd;
+
+}
+
+/* === ここまで新しい検索フォームのスタイル === */
+
+
+
+
 
 /* === 商品一覧テーブル === */
+
 .table {
-    margin: 0 auto;
-    width: 95%;
-    border-collapse: collapse;
+
+margin: 0 auto;
+
+width: 95%;
+
+border-collapse: collapse;
+
 }
+
 .table th,
+
 .table td {
-    vertical-align: middle;
-    text-align: center;
-    padding: 12px;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+
+vertical-align: middle;
+
+text-align: center;
+
+padding: 12px;
+
+border-top: 1px solid #ddd;
+
+border-bottom: 1px solid #ddd;
+
 }
+
 .table thead th {
-    border-top: none;
+
+border-top: none;
+
 }
+
 .table td:first-child,
+
 .table th:first-child {
-    border-left: none;
+
+border-left: none;
+
 }
+
 .table td:last-child,
+
 .table th:last-child {
-    border-right: none;
+
+border-right: none;
+
 }
+
 .table img {
-    max-width: 60px;
-    height: auto;
-    border-radius: 6px;
+
+max-width: 60px;
+
+height: auto;
+
+border-radius: 6px;
+
 }
+
+
 
 /* === フォーム行 === */
+
+/* このセクションは古いフォームのスタイルなので、新しいフォームでは使われません */
+
 .form-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-    gap: 10px;
+
+display: flex;
+
+align-items: center;
+
+margin-bottom: 12px;
+
+gap: 10px;
+
 }
+
 .form-row label {
-    width: 100px;
-    font-weight: bold;
-    white-space: nowrap;
+
+width: 100px;
+
+font-weight: bold;
+
+white-space: nowrap;
+
 }
+
 .form-row input,
+
 .form-row select,
+
 .form-row textarea {
-    flex: 1;
-    padding: 8px;
-    font-size: 14px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+
+flex: 1;
+
+padding: 8px;
+
+font-size: 14px;
+
+border-radius: 8px;
+
+border: 1px solid #ccc;
+
+box-sizing: border-box;
+
 }
+
 .form-row.button-center {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 30px;
+
+display: flex;
+
+justify-content: center;
+
+gap: 16px;
+
+margin-top: 30px;
+
 }
+
 .btn2-submit {
-    padding: 8px 24px;
-    font-size: 14px;
-    background-color: pink;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
+
+padding: 8px 24px;
+
+font-size: 14px;
+
+background-color: pink;
+
+color: white;
+
+border: none;
+
+border-radius: 8px;
+
+cursor: pointer;
+
+font-weight: bold;
+
+transition: background-color 0.3s;
+
 }
+
+
 
 .btn2-submit:hover {
-    background-color: #d87093;
+
+background-color: #d87093;
+
 }
+
+
 
 .btn2-back {
-    padding: 8px 24px;
-    font-size: 14px;
-    background-color: #ccc;
-    color: black;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
+
+padding: 8px 24px;
+
+font-size: 14px;
+
+background-color: #ccc;
+
+color: black;
+
+border: none;
+
+border-radius: 8px;
+
+font-weight: bold;
+
+cursor: pointer;
+
+text-decoration: none;
+
+display: inline-block;
+
 }
+
+
 
 .btn2-back:hover {
-    background-color: #b3b3b3;
+
+background-color: #b3b3b3;
+
 }
-  
+
+
+
 
 .product-form {
-    max-width: 500px;  
-    margin: 40px auto;
-    padding: 30px;    
-    background-color: #fff0f5;
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+max-width: 500px;
+
+margin: 40px auto;
+
+padding: 30px;
+
+background-color: #fff0f5;
+
+border-radius: 20px;
+
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
 }
+
+
 
 /* === 汎用ボタン（編集・戻る） === */
+
 .form-buttons,
+
 .button-group-left {
-    display: flex;
-    justify-content: flex-start;
-    gap: 20px;
-    margin-top: 25px;
-    margin-left: 0;
-}
-.btn-submit,
-.btn-back,
-.btn-edit {
-    padding: 9px 28px;
-    font-size: 16px;
-    height: 40px;
-    line-height: 1;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-}
-.btn-submit {
-    background-color: #f8b9d4;
-    color: white;
-}
-.btn-submit:hover {
-    background-color: #f597bd;
-}
-.btn-back {
-    height: 40px;
-    line-height: 40px;
-    padding: 0 20px;
-    background-color: #ccc;
-    color: black;
-    margin-top: -1px;
-    margin-left: 40px;
-}
-.btn-edit {
-    background-color: #ffc107;
-    color: black;
+
+display: flex;
+
+justify-content: flex-start;
+
+gap: 20px;
+
+margin-top: 25px;
+
+margin-left: 0;
+
 }
 
+.btn-submit,
+
+.btn-back,
+
+.btn-edit {
+
+padding: 9px 28px;
+
+font-size: 16px;
+
+height: 40px;
+
+line-height: 1;
+
+border-radius: 12px;
+
+border: none;
+
+cursor: pointer;
+
+transition: background-color 0.3s ease;
+
+text-decoration: none;
+
+display: inline-block;
+
+}
+
+.btn-submit {
+
+background-color: #f8b9d4;
+
+color: white;
+
+}
+
+.btn-submit:hover {
+
+background-color: #f597bd;
+
+}
+
+.btn-back {
+
+height: 40px;
+
+line-height: 40px;
+
+padding: 0 20px;
+
+background-color: #ccc;
+
+color: black;
+
+margin-top: -1px;
+
+margin-left: 40px;
+
+}
+
+.btn-edit {
+
+background-color: #ffc107;
+
+color: black;
+
+}
+
+
+
 /* === 商品詳細テーブル === */
+
 .product-detail-table {
-    margin: 0 auto;
-    width: 60%;
-    max-width: 700px;
-    border-collapse: collapse;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+margin: 0 auto;
+
+width: 60%;
+
+max-width: 700px;
+
+border-collapse: collapse;
+
+background-color: #fff;
+
+border-radius: 10px;
+
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
 }
+
 .product-detail-table th,
+
 .product-detail-table td {
-    padding: 12px 18px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-    font-size: 15px;
+
+padding: 12px 18px;
+
+text-align: left;
+
+border-bottom: 1px solid #eee;
+
+font-size: 15px;
+
 }
+
 .product-detail-table th {
-    background-color: #f9f9f9;
-    width: 30%;
-    font-weight: bold;
+
+background-color: #f9f9f9;
+
+width: 30%;
+
+font-weight: bold;
+
 }
+
 .product-detail-table tr:last-child td {
-    border-bottom: none;
+
+border-bottom: none;
+
 }
+
 .product-image {
-    max-width: 150px;
-    border-radius: 6px;
-    height: auto;
+
+max-width: 150px;
+
+border-radius: 6px;
+
+height: auto;
+
 }
+
+
 
 /* === アクションボタン共通（詳細・削除） === */
 
+
+
 /* === 共通ボタンスタイル === */
+
 /* === 共通ボタンスタイル（a, button 対応） === */
+
 .btn-action {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-    padding: 0 16px;
-    font-size: 14px;
-    line-height: 1; /* ← 高さを揃えるために重要！ */
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: none;
-    color: #fff;
-    box-sizing: border-box;
-    transition: background-color 0.3s ease;
+
+display: inline-flex;
+
+align-items: center;
+
+justify-content: center;
+
+height: 40px; /* ★共通の高さ */
+
+padding: 0 16px; /* ★共通のパディング */
+
+font-size: 14px;
+
+line-height: 1; /* ★高さを揃えるために重要！ */
+
+border: none;
+
+border-radius: 8px;
+
+cursor: pointer;
+
+font-weight: bold;
+
+text-decoration: none;
+
+color: #fff; /* 共通の文字色を白に設定 */
+
+box-sizing: border-box; /* ★パディングを含めて幅を計算 */
+
+transition: background-color 0.3s ease;
+
 }
+
+
 
 /* === 詳細ボタン（ピンク） === */
+
 .btn-detail {
-    background-color: #f28cb1;
-}
-.btn-detail:hover {
-    background-color: #e8759c;
+
+background-color: #f28cb1;
+
 }
 
-.delete-btn-red {
-    background-color: #dc3545;
-    color: white;
-    padding: 8px 16px;
-    font-size: 14px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    height: 38px;
-    margin-top: 10px; /* 少し上に調整 */
-    transition: background-color 0.3s ease;
+.btn-detail:hover {
+
+background-color: #e8759c;
+
 }
-.delete-btn-red:hover {
-    background-color: #c82333;
+
+
+
+.btn-delete {
+
+display: inline-flex;
+
+align-items: center;
+
+justify-content: center;
+
+height: 40px;
+
+padding: 0 16px;
+
+font-size: 14px;
+
+line-height: 1;
+
+border-radius: 8px;
+
+border: none;
+
+cursor: pointer;
+
+transition: background-color 0.3s ease;
+
+color: white;
+
+background-color: #dc3545; /* 赤色 */
+
+box-sizing: border-box;
+
+margin-top: 8px; /* ⭐︎ ここを追加！下に2px移動する例 */
+
 }
+
+.btn-delete:hover {
+
+background-color: #c82333; /* ホバー時の色 */
+
+}
+
+
+
+
+
+
 
 /* === ページネーション === */
+
 .pagination {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 20px;
+
+display: flex;
+
+justify-content: center;
+
+gap: 6px;
+
+margin-top: 20px;
+
 }
+
 .pagination a,
+
 .pagination span {
-    display: inline-block;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    text-decoration: none;
-    color: #333;
+
+display: inline-block;
+
+padding: 6px 12px;
+
+border: 1px solid #ccc;
+
+border-radius: 4px;
+
+font-size: 14px;
+
+text-decoration: none;
+
+color: #333;
+
 }
+
 .pagination .font-weight-bold {
-    background-color: #d1ecf1;
-    border-color: #bee5eb;
-    font-weight: bold;
+
+background-color: #d1ecf1;
+
+border-color: #bee5eb;
+
+font-weight: bold;
+
 }
+
 /* === 新規登録ボタン（ユーザー登録用・かわいいデザイン） === */
+
 .btn-user-register {
-    background-color: #f8b9d4;
-    color: white;
-    border: none;
-    padding: 10px 26px;
-    font-size: 16px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin: 20px auto 0 auto;
+
+background-color: #f8b9d4;
+
+color: white;
+
+border: none;
+
+padding: 10px 26px;
+
+font-size: 16px;
+
+border-radius: 25px;
+
+cursor: pointer;
+
+transition: background-color 0.3s ease;
+
+display: block;
+
+margin: 20px auto 0 auto;
+
 }
+
 .btn-user-register:hover {
-    background-color: #f597bd;
+
+background-color: #f597bd;
+
+}
+
+.product-actions-cell {
+
+align-items: center; /* 垂直方向の中央揃え */
+
 }

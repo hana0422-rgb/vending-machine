@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Sale;
 use App\Models\Product;
 
-class SaleController extends Controller
+class SaleApiController extends Controller
 {
     /**
      * 売上一覧表示 (API用)

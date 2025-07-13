@@ -16,12 +16,20 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::middleware(['auth'])->group(function () {
     // 商品関連ルート
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
     Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+    
+    // ⭐︎ ここが重要: より具体的な /products/search を /products/{id} の前に定義する
+    Route::get('/products/search', [ProductController::class, 'ajaxSearch'])->name('products.search');
+    
+    // より一般的な /products/{id} は /products/search の後に定義する
     Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+    
+    // 商品一覧のルートはそのまま
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
 
     // 売上関連ルート
     Route::get('/sales', [SaleController::class, 'index'])->name('sales.index');

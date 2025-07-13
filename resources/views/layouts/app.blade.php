@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>自動販売機管理システム</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}"> {{-- ← これを追加 --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}"> 
     
 </head>
 <body>
@@ -62,5 +63,6 @@
 <main class="container">
     @yield('content')
 </main>
+@yield('scripts') 
 </body>
 </html>

@@ -4,90 +4,77 @@
 <div class="container">
     <h1 class="mb-4">商品一覧</h1>
 
-    <!-- 検索フォーム -->
-    <form method="GET" action="{{ route('products.index') }}" class="search-form">
-        <input type="text" name="keyword" placeholder="検索キーワード" value="{{ request('keyword') }}">
-        <select name="company_id">
-            <option value="">メーカー名</option>
-            @foreach ($companies as $company)
-                <option value="{{ $company->id }}" {{ request('company_id') == $company->id ? 'selected' : '' }}>
-                    {{ $company->company_name }}
-                </option>
-            @endforeach
-        </select>
-        <button type="submit" class="btn-search">検索</button>
-        <a href="{{ route('products.create') }}" class="btn-register">新規登録</a>
+    <form id="search-form" method="GET" action="{{ route('products.search') }}" class="search-form-candidate1">
+        <div class="search-inputs">
+            {{-- 最初の行: 検索キーワードとメーカー名 --}}
+            <div class="search-row">
+                <input type="text" name="keyword" placeholder="検索キーワード" value="{{ request('keyword') }}">
+                <select name="company_id">
+                    <option value="">メーカー名</option>
+                    @foreach ($companies as $company)
+                        <option value="{{ $company->id }}" {{ request('company_id') == $company->id ? 'selected' : '' }}>
+                            {{ $company->company_name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- 2番目の行: 価格範囲と在庫数範囲 --}}
+            <div class="search-row">
+                <div class="input-group">
+                    <input type="number" name="min_price" placeholder="最小価格" value="{{ request('min_price') }}">
+                    <span class="input-separator">〜</span>
+                    <input type="number" name="max_price" placeholder="最大価格" value="{{ request('max_price') }}">
+                </div>
+
+                <div class="input-group">
+                    <input type="number" name="min_stock" placeholder="最小在庫数" value="{{ request('min_stock') }}">
+                    <span class="input-separator">〜</span>
+                    <input type="number" name="max_stock" placeholder="最大在庫数" value="{{ request('max_stock') }}">
+                </div>
+            </div>
+
+            <input type="hidden" name="sort" id="sort" value="{{ request('sort') }}">
+            <input type="hidden" name="order" id="order" value="{{ request('order', 'asc') }}">
+        </div>
+
+        <div class="search-buttons">
+            <button type="submit" class="btn btn-primary">検索</button>
+            <a href="{{ route('products.create') }}" class="btn btn-success">新規登録</a>
+        </div>
     </form>
 
     <!-- 商品一覧テーブル -->
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>商品画像</th>
-                <th>商品名</th>
-                <th>価格</th>
-                <th>在庫数</th>
-                <th>メーカー名</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($products as $product)
-            <tr>
-                <td>{{ $product->id }}</td>
-                <td>
-                    @if($product->image_path)
-                        <img src="{{ asset('storage/' . $product->image_path) }}" alt="商品画像" width="60">
-                    @else
-                        画像なし
-                    @endif
-                </td>
-                <td>{{ $product->product_name }}</td>
-                <td>¥{{ $product->price }}</td>
-                <td>{{ $product->stock }}</td>
-                <td>{{ $product->company->company_name ?? '' }}</td>
-<td class="d-flex" style="gap: 8px; justify-content: center;">
-    <!-- 詳細ボタン -->
-    <a href="{{ route('products.show', $product->id) }}" class="btn-action btn-detail">詳細</a>
-
-    <!-- 削除ボタン -->
-    <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('本当に削除しますか？');">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn-action delete-btn-red">削除</button>
-    </form>
-</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    <!-- ページネーション -->
-    <div class="d-flex justify-content-center mt-3">
-        @if ($products->lastPage() > 1)
-            <div class="pagination">
-                @if ($products->onFirstPage())
-                    <span class="px-2">&lt;</span>
-                @else
-                    <a href="{{ $products->appends(request()->query())->previousPageUrl() }}" class="px-2">&lt;</a>
-                @endif
-
-                @for ($i = 1; $i <= $products->lastPage(); $i++)
-                    @if ($i == $products->currentPage())
-                        <span class="px-2 font-weight-bold">{{ $i }}</span>
-                    @else
-                        <a href="{{ $products->appends(request()->query())->url($i) }}" class="px-2">{{ $i }}</a>
-                    @endif
-                @endfor
-
-                @if ($products->hasMorePages())
-                    <a href="{{ $products->appends(request()->query())->nextPageUrl() }}" class="px-2">&gt;</a>
-                @else
-                    <span class="px-2">&gt;</span>
-                @endif
-            </div>
-        @endif
+    <div id="product-table">
+        @include('products.partials.product_table', ['products' => $products])
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="{{ asset('js/product-search.js') }}"></script>
+<script>
+    $(document).on('click', '.btn-delete', function () {
+        if (!confirm('本当に削除しますか？')) return;
+
+        const button = $(this);
+        const productId = button.data('id');
+        const row = button.closest('tr');
+
+        $.ajax({
+            url: `/products/${productId}`,
+            type: 'POST',
+            data: {
+                _method: 'DELETE',
+                _token: '{{ csrf_token() }}',
+            },
+            success: function () {
+                row.remove();
+            },
+            error: function () {
+                alert('削除に失敗しました');
+            }
+        });
+    });
+</script>
 @endsection
