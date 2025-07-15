@@ -6,45 +6,44 @@ use App\Models\Product;
 use App\Models\Company;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-use App\Http\Requests\ProductRequest; // もしProductRequestを使用していない場合は削除してください
+use App\Http\Requests\ProductRequest; 
 
 class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        // デフォルトのソート順をid降順に設定
+
         $sortColumn = $request->input('sort');
         $sortOrder = $request->input('order');
         if (empty($sortColumn)) {
             $sortColumn = 'id';
-            $sortOrder = 'desc'; // 初期表示をid降順に強制
+            $sortOrder = 'desc'; 
         }
-        $request->merge(['sort' => $sortColumn, 'order' => $sortOrder]); // リクエストにデフォルト値をマージ
+        $request->merge(['sort' => $sortColumn, 'order' => $sortOrder]); 
 
-        // buildFilteredQuery を使用してクエリを構築
+       
         $query = $this->buildFilteredQuery($request);
-        // 通常のindexページではページネーションを適用
-        $products = $query->paginate(5); // 例: 1ページあたり5件表示
+        
+        $products = $query->paginate(5); 
 
         $companies = Company::all();
 
         return view('products.index', compact('products', 'companies'));
     }
 
-    // ⭐︎ この ajaxSearch メソッドを追加します
+  
     public function ajaxSearch(Request $request)
     {
-        // buildFilteredQuery を使用してクエリを構築
+       
         $query = $this->buildFilteredQuery($request);
-        // Ajax検索ではページネーションなしで全件取得（またはAjax用のページネーションを別途実装）
+       
         $products = $query->get();
 
-        // 部分ビューをレンダリングし、Content-Typeを明示的にtext/htmlとして返す
+        
         return response(view('products.partials.product_table', compact('products'))->render())
                ->header('Content-Type', 'text/html');
     }
 
-    // 検索・フィルタリング・ソートのロジックを共通化するためのプライベートメソッド
     private function buildFilteredQuery(Request $request)
     {
         $query = Product::with('company');
@@ -89,16 +88,16 @@ class ProductController extends Controller
         return view('products.create', compact('companies'));
     }
 
-    public function store(Request $request) // ProductRequestを使用しない場合はRequest $requestに変更
+    public function store(Request $request) 
     {
-        // ProductRequestを使用していない場合、ここでバリデーションを定義
+
         $request->validate([
             'product_name' => 'required|max:255',
             'company_id' => 'required|exists:companies,id',
             'price' => 'required|integer|min:0',
             'stock' => 'required|integer|min:0',
             'comment' => 'nullable|string',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // image_path に変更
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
         ]);
 
         try {
@@ -109,8 +108,8 @@ class ProductController extends Controller
             $product->stock = $request->stock;
             $product->comment = $request->comment;
 
-            if ($request->hasFile('image_path')) { // image_path に変更
-                $path = $request->file('image_path')->store('products', 'public'); // products フォルダに保存
+            if ($request->hasFile('image_path')) { 
+                $path = $request->file('image_path')->store('products', 'public'); 
                 $product->image_path = $path;
             }
 
@@ -136,16 +135,16 @@ class ProductController extends Controller
         return view('products.edit', compact('product', 'companies'));
     }
 
-    public function update(Request $request, $id) // ProductRequestを使用しない場合はRequest $requestに変更
+    public function update(Request $request, $id) 
     {
-        // ProductRequestを使用していない場合、ここでバリデーションを定義
+
         $request->validate([
             'product_name' => 'required|max:255',
             'company_id' => 'required|exists:companies,id',
             'price' => 'required|integer|min:0',
             'stock' => 'required|integer|min:0',
             'comment' => 'nullable|string',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // image_path に変更
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
         ]);
 
         try {
@@ -157,11 +156,11 @@ class ProductController extends Controller
             $product->stock = $request->stock;
             $product->comment = $request->comment;
 
-            if ($request->hasFile('image_path')) { // image_path に変更
+            if ($request->hasFile('image_path')) { 
                 if ($product->image_path) {
                     Storage::disk('public')->delete($product->image_path);
                 }
-                $path = $request->file('image_path')->store('products', 'public'); // products フォルダに保存
+                $path = $request->file('image_path')->store('products', 'public'); 
                 $product->image_path = $path;
             }
 
@@ -185,12 +184,12 @@ class ProductController extends Controller
 
             $product->delete();
 
-            // AjaxリクエストならJSONレスポンスを返す
+            
             if (request()->ajax()) {
                 return response()->json(['success' => true]);
             }
 
-            // 通常のHTMLリクエストの場合
+  
             return redirect()->route('products.index')->with('success', '商品を削除しました。');
         } catch (\Exception $e) {
             \Log::error('商品削除中にエラーが発生しました: ' . $e->getMessage());

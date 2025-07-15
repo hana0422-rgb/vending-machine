@@ -20,9 +20,7 @@ class EventServiceProvider extends ServiceProvider
         ],
     ];
 
-    /**
-     * アプリケーションのイベント登録
-     */
+   
     public function boot(): void
     {
         //

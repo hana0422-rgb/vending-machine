@@ -8,18 +8,14 @@ use App\Models\Product;
 
 class SaleController extends Controller
 {
-    /**
-     * 売上一覧表示 (API用)
-     */
+   
     public function index()
     {
         $sales = Sale::with('product')->orderBy('created_at', 'desc')->get();
-        return response()->json($sales); // JSON形式で売上一覧を返す
+        return response()->json($sales); 
     }
 
-    /**
-     * 売上登録処理 (API用)
-     */
+   
     public function store(Request $request)
     {
         try {
@@ -32,7 +28,7 @@ class SaleController extends Controller
             $product = Product::findOrFail($request->product_id);
             $amount = $product->price * $request->quantity;
         
-            // 在庫を減らす（必要であればチェック）
+       
             if ($product->stock < $request->quantity) {
                 return response()->json(['error' => '在庫が足りません。'], 400); // 在庫不足の場合はエラーレスポンス
             }
@@ -48,10 +44,10 @@ class SaleController extends Controller
                 'amount' => $amount,
             ]);
         
-            return response()->json($sale, 201); // 登録成功のレスポンス（201 Created）
+            return response()->json($sale, 201); 
         
         } catch (\Exception $e) {
-            // エラーの詳細をロギングし、ユーザーには一般的なメッセージを返却
+   
             \Log::error('Sale registration failed: ' . $e->getMessage());
             return response()->json(['error' => '内部サーバーエラー'], 500); // 一般的なエラーレスポンス
         }
